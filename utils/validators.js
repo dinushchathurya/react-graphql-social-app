@@ -6,15 +6,15 @@ module.exports.validateRegisterInput = (
  ) => {
     const errors = {};
     if(username.trim() === ''){
-        error.username = 'Username cannot be empty';
+        errors.username = 'Username cannot be empty';
     }
 
     if(email.trim() === ''){
-        error.email = 'Email cannot be empty';
+        errors.email = 'Email cannot be empty';
     } else {
         const regEx = /^([0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9})$/;
         if(!email.match(regEx)){
-            error.email = 'Password should be a valid password';
+            errors.email = 'Email should be a valid email';
         }
     } 
 
