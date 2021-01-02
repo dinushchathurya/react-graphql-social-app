@@ -7,7 +7,8 @@ const { mongoURI } = require('./config/keys');
 
 const server = new ApolloServer({
     typeDefs,
-    resolvers
+    resolvers,
+    context: ({ req }) => ({ req })
 })
 
 /* Connect to MongoDB */
