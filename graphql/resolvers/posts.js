@@ -1,4 +1,5 @@
 const Post = require('../../models/Post');
+const isAuth = require('../../utils/is-auth');
 
 module.exports = {
     Query : {
@@ -10,7 +11,7 @@ module.exports = {
                 throw new Error(err);
             }
         },
-        async getPost(__, { postId }) {
+        async getPost(_, { postId }) {
             try {
                 const post = await Post.findById(postId);
                 if(post){
@@ -21,6 +22,22 @@ module.exports = {
             } catch (err) {
                 throw new Error(err);
             }
+        }
+    },
+    Mutation : {
+        async createPost(_, { body }, context){
+            const user = isAuth(context);
+            console.log(user);
+
+            const newPost = new Post({
+                body,
+                user: user.id,
+                username: user.username,
+                createdAt: new Date().toISOString()
+            });
+
+            const post = await newPost.save();
+            return post;
         }
     }
 }
