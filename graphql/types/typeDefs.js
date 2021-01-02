@@ -10,14 +10,14 @@ module.exports = gql `
         likes: [Like]!
     }
 
-    type comment {
+    type Comment {
         id:ID!
         createdAt: String!
         username: String!
         body: String!
     }
 
-    type {
+    type Like {
         id:ID!
         createdAt: String!
         username: String! 
