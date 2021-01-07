@@ -1,6 +1,7 @@
 import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
+import { Grid, Image } from 'semantic-ui-react';
 
 function Home() {
     const { loading, data } = useQuery(FETCH_POSTS_QUERY)
@@ -9,9 +10,16 @@ function Home() {
         console.log(data)
     }
     return (
-        <div>
-            <h1>Home works</h1>
-        </div>
+        <Grid columns={3} divided>
+            <Grid.Row>
+                <h1>Recent Posts</h1>
+            </Grid.Row>
+            <Grid.Row>
+                <Grid.Column>
+                    <Image src='https://react.semantic-ui.com/images/avatar/large/matthew.png' />
+                </Grid.Column>
+            </Grid.Row>
+        </Grid>
     )
 }
 
