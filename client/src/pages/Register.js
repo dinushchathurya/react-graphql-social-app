@@ -3,7 +3,7 @@ import { Form, Button } from 'semantic-ui-react';
 import { useMutation } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 
-function Register() {
+function Register(props) {
 
     const [errors, setErrors] = useState({});
     const [values, setValues] = useState({
@@ -18,11 +18,10 @@ function Register() {
     }
 
     const [addUser, { loading }] = useMutation(REGISTER_USER, {
-        update(proxy, result) {
-            console.log(result)
+        update(_, result) {
+            props.history.push('/')
         },
         onError(err){
-            console.log(err.graphQLErrors[0].extensions.exception.errors)
             setErrors(err.graphQLErrors[0].extensions.exception.errors);
         },
         variables: values
@@ -44,6 +43,7 @@ function Register() {
                     placeholder="Username"
                     name="username"
                     value={values.username}
+                    error={errors.username ? true : false}
                     onChange={onChange}
                 />
                 <Form.Input
@@ -52,6 +52,7 @@ function Register() {
                     placeholder="Email"
                     name="email"
                     value={values.email}
+                    error={errors.email ? true : false}
                     onChange={onChange}
                 />
                 <Form.Input
@@ -59,6 +60,7 @@ function Register() {
                     type="password"
                     placeholder="Password"
                     name="password"
+                    error={errors.password ? true : false}
                     value={values.password}
                     onChange={onChange}
                 />
@@ -68,6 +70,7 @@ function Register() {
                     placeholder="Confirm Password"
                     name="confirmPassword"
                     value={values.confirmPassword}
+                    error={errors.confirmPassword ? true : false}
                     onChange={onChange}
                 />
                 <Button type="submit" primary>Register</Button>
